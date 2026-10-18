@@ -1,0 +1,14 @@
+# ==============================================================================
+# Florida Lottery Enterprise Proxy Configuration Template
+# ==============================================================================
+# Copy this file to 'proxy.properties' in your working directory or to
+# 'C:\ocioldapps1\Cached\DbCache\proxy.properties'.
+# ==============================================================================
+
+# Florida Lottery Corporate Proxy (Verified Active)
+proxy.host=192.149.205.94
+proxy.port=9091
+
+# Optional Proxy Credentials (if required)
+proxy.user=
+proxy.password=

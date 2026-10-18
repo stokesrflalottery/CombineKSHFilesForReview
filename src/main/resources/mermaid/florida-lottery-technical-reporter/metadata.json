@@ -1,0 +1,6 @@
+{
+  "name": "Florida Lottery - Stored Procedure Documenter & Technical Reporter",
+  "description": "Enterprise Java ETL tooling for extracting, reverse-engineering, documenting, and generating technical reports for Oracle, SQL Server, and MySQL stored procedures.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

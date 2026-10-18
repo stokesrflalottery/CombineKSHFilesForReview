@@ -1,0 +1,43 @@
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'primaryColor': '#F5EEF8',
+    'primaryTextColor': '#3B102E',
+    'primaryBorderColor': '#5C1D48',
+    'lineColor': '#5C1D48',
+    'textColor': '#3B102E',
+    'fontSize': '11px',
+    'fontFamily': 'Segoe UI, Arial, sans-serif'
+  }
+}}%%
+flowchart TD
+    subgraph LEGEND ["RELATIONAL & JOIN NOTATION SYMBOL LEGEND — FLORIDA LOTTERY ENTERPRISE"]
+        direction TD
+
+        subgraph C_O2M ["One to Many (-->) — Parent PK to Child FK Directed Reference"]
+            direction LR
+            P1["Parent PK"] -->|"id -> parent_id [FK]"| C1["Child FK"]
+        end
+
+        subgraph C_O2O ["One to One (--) — Unique / Equi-Join Domain Reference"]
+            direction LR
+            P2["Table A (PK/UK)"] ---|"col_a -- col_b [1:1]"| C2["Table B (PK/UK)"]
+        end
+
+        subgraph C_M2O ["Many to One (<--) — Child FK to Parent PK Directed Reference"]
+            direction LR
+            P3["Parent PK"] -->|"parent_id <- id [FK]"| C3["Child FK"]
+        end
+
+        subgraph C_EQUI ["Equi-Join (<-->) — Shared Domain Key Mutual Join"]
+            direction LR
+            P4["Domain Key A"] <-->|"col_a <-> col_b"| C4["Domain Key B"]
+        end
+    end
+
+    classDef default fill:#FFFFFF,stroke:#5C1D48,stroke-width:1.5px,color:#3B102E;
+    style LEGEND fill:#F5EEF8,stroke:#5C1D48,stroke-width:2px;
+    style C_O2M fill:#FFFFFF,stroke:#C4B5D0,stroke-width:1.5px;
+    style C_O2O fill:#FFFFFF,stroke:#C4B5D0,stroke-width:1.5px;
+    style C_M2O fill:#FFFFFF,stroke:#C4B5D0,stroke-width:1.5px;
+    style C_EQUI fill:#FFFFFF,stroke:#C4B5D0,stroke-width:1.5px;
