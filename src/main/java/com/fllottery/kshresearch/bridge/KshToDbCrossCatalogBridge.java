@@ -5,6 +5,8 @@ import com.fllottery.kshresearch.model.KornShellScriptDocModel;
 import com.fllottery.kshresearch.model.ScriptReferenceDoc;
 import com.fllottery.kshresearch.model.ScriptReferenceType;
 import com.fllottery.dbresearch.search.DbObjectSearcher;
+import com.fllottery.dbresearch.model.DbObject;
+import com.fllottery.dbresearch.model.TableDocModel;
 import com.fllottery.common.util.FlLogger;
 
 import java.io.File;
@@ -152,7 +154,7 @@ public class KshToDbCrossCatalogBridge {
         if (dbSearcher != null) {
             // Attempt to find package or procedure in catalog
             String searchKey = packageName != null ? (schema + "." + packageName) : (schema + "." + procedureName);
-            DbObjectSearcher.DbObject dbObj = dbSearcher.findDbObject(searchKey);
+            DbObject dbObj = dbSearcher.findObject(searchKey);
             if (dbObj == null) {
                 dbObj = dbSearcher.findObject(cleaned);
             }
@@ -214,7 +216,7 @@ public class KshToDbCrossCatalogBridge {
         String comments = "";
 
         if (dbSearcher != null) {
-            DbObjectSearcher.TableDocModel tableDoc = dbSearcher.findTable(schema, tableName);
+            TableDocModel tableDoc = dbSearcher.findTable(schema, tableName);
             if (tableDoc != null) {
                 foundInDbCache = true;
                 rowCount = tableDoc.numRows;
@@ -226,7 +228,7 @@ public class KshToDbCrossCatalogBridge {
                 }
             } else {
                 // Fallback search
-                DbObjectSearcher.DbObject dbObj = dbSearcher.findDbObject(schema + "." + tableName);
+                DbObject dbObj = dbSearcher.findObject(schema + "." + tableName);
                 if (dbObj != null) {
                     foundInDbCache = true;
                     if (dbObj.getPrimaryKeys() != null) {
@@ -276,7 +278,7 @@ public class KshToDbCrossCatalogBridge {
                     (proc.getSchema() + "." + proc.getPackageName()) :
                     (proc.getSchema() + "." + proc.getProcedureName());
 
-            DbObjectSearcher.DbObject dbObj = dbSearcher.findDbObject(searchKey);
+            DbObject dbObj = dbSearcher.findObject(searchKey);
             if (dbObj != null && dbObj.getRawJson() != null) {
                 JsonNode raw = dbObj.getRawJson();
 

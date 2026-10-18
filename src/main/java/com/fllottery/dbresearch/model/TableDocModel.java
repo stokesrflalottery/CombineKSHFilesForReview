@@ -20,8 +20,8 @@ public class TableDocModel implements Serializable {
     public String tableName = "";
     public String docId = "";
     public String docPath = "";
-    public String tableType = "RELATIONAL TABLE";
     public String description = "Core enterprise persistence table.";
+    public String comments = "Core enterprise persistence table.";
     public String tableRole = "";
     public String worldView = "";
     public Long numRows = 0L;
@@ -61,6 +61,7 @@ public class TableDocModel implements Serializable {
         m.docPath = m.schema + "/Tables/" + m.docId + ".docx";
         m.tableType = tbl.path("TableType").asText(tbl.path("Type").asText("RELATIONAL TABLE"));
         m.description = tbl.path("Comments").asText(tbl.path("Description").asText("Core enterprise persistence table."));
+        m.comments = m.description;
 
         if (tbl.hasNonNull("NumRows")) m.numRows = tbl.path("NumRows").asLong();
         if (tbl.hasNonNull("AvgRowLen")) m.avgRowLen = tbl.path("AvgRowLen").asInt();

@@ -335,7 +335,7 @@ public class TableRelationshipDiagramHelper {
 
         // 1. Discover Parent Tables referenced by targetTable
         if (!isExternalTable(targetTable)) {
-            DbObjectSearcher.TableRelationship bestParent = DbObjectSearcher.getInstance().findBestParentRelationship(targetTable.schema, targetTable.tableName);
+            TableRelationship bestParent = DbObjectSearcher.getInstance().findBestParentRelationship(targetTable.schema, targetTable.tableName);
             if (bestParent != null) {
                 String pTable = bestParent.getTargetTable();
                 String pSchema = bestParent.getTargetSchema();
@@ -366,9 +366,9 @@ public class TableRelationshipDiagramHelper {
 
         // 2. Discover Child Tables referencing targetTable
         if (!isExternalTable(targetTable)) {
-            List<DbObjectSearcher.TableRelationship> children = DbObjectSearcher.getInstance().findChildRelationships(targetTable.schema, targetTable.tableName);
+            List<TableRelationship> children = DbObjectSearcher.getInstance().findChildRelationships(targetTable.schema, targetTable.tableName);
             if (!children.isEmpty()) {
-                for (DbObjectSearcher.TableRelationship cRel : children) {
+                for (TableRelationship cRel : children) {
                     String cTable = cRel.getSourceTable();
                     String cSchema = cRel.getSourceSchema();
                     String cName = sanitizeName(cSchema + "_" + cTable);
@@ -474,7 +474,7 @@ public class TableRelationshipDiagramHelper {
 
         // 1. Discover Parent Tables referenced by targetTable (DbObjectSearcher first, then columns)
         if (!isExternalTable(targetTable)) {
-            DbObjectSearcher.TableRelationship bestParent = DbObjectSearcher.getInstance().findBestParentRelationship(targetTable.schema, targetTable.tableName);
+            TableRelationship bestParent = DbObjectSearcher.getInstance().findBestParentRelationship(targetTable.schema, targetTable.tableName);
             if (bestParent != null && bestParent.getTargetTable() != null && !bestParent.getTargetTable().equalsIgnoreCase(targetTable.tableName)) {
                 parentRels.put(bestParent.getTargetTable(), bestParent.getSourceColumn());
             }
@@ -494,9 +494,9 @@ public class TableRelationshipDiagramHelper {
 
         // 2. Discover Child Tables referencing targetTable (DbObjectSearcher first, then columns)
         if (allSchemaTables != null && !isExternalTable(targetTable)) {
-            List<DbObjectSearcher.TableRelationship> children = DbObjectSearcher.getInstance().findChildRelationships(targetTable.schema, targetTable.tableName);
+            List<TableRelationship> children = DbObjectSearcher.getInstance().findChildRelationships(targetTable.schema, targetTable.tableName);
             if (children != null) {
-                for (DbObjectSearcher.TableRelationship cr : children) {
+                for (TableRelationship cr : children) {
                     if (cr.getSourceTable() != null && !cr.getSourceTable().equalsIgnoreCase(targetTable.tableName)) {
                         childRels.put(cr.getSourceTable(), cr.getSourceColumn());
                         if (childRels.size() >= 3) break;
@@ -722,9 +722,9 @@ public class TableRelationshipDiagramHelper {
         }
         // Check DbObjectSearcher relationships
         try {
-            List<DbObjectSearcher.TableRelationship> rels = DbObjectSearcher.getInstance().findRelationshipsForTable(model.schema, model.tableName);
+            List<TableRelationship> rels = DbObjectSearcher.getInstance().findRelationshipsForTable(model.schema, model.tableName);
             if (rels != null) {
-                for (DbObjectSearcher.TableRelationship rel : rels) {
+                for (TableRelationship rel : rels) {
                     if (rel.getSourceTable().equalsIgnoreCase(model.tableName) && col.columnName.equalsIgnoreCase(rel.getSourceColumn())) {
                         boolean result = true;
                         return result;
@@ -1432,7 +1432,7 @@ public class TableRelationshipDiagramHelper {
             }
 
             // 1. Left: Parent Entity (Lookup / Master) - Mined via DbObjectSearcher
-            DbObjectSearcher.TableRelationship bestParentRel = !isExternalTable(tbl)
+            TableRelationship bestParentRel = !isExternalTable(tbl)
                     ? DbObjectSearcher.getInstance().findBestParentRelationship(tbl.schema, tbl.tableName)
                     : null;
 
@@ -1446,7 +1446,7 @@ public class TableRelationshipDiagramHelper {
 
             GenerateTechnicalWordDocs.TableDocModel parentModel = parentTableName != null ? tableMap.get(parentTableName.toUpperCase()) : null;
             if (parentModel == null && parentTableName != null) {
-                DbObjectSearcher.TableDocModel found = DbObjectSearcher.getInstance().findTable(pSchema, parentTableName);
+                TableDocModel found = DbObjectSearcher.getInstance().findTable(pSchema, parentTableName);
                 if (found != null) {
                     parentModel = fromSearcherDocModel(found);
                 } else {
@@ -1490,7 +1490,7 @@ public class TableRelationshipDiagramHelper {
             drawEntityCard(g, centerX, targetY, targetW, targetH, tbl, true);
 
             // 3. Right: Child Entity (Transactions / Dependents) - Mined via DbObjectSearcher
-            List<DbObjectSearcher.TableRelationship> childRels = !isExternalTable(tbl)
+            List<TableRelationship> childRels = !isExternalTable(tbl)
                     ? DbObjectSearcher.getInstance().findChildRelationships(tbl.schema, tbl.tableName)
                     : Collections.emptyList();
 
@@ -1504,7 +1504,7 @@ public class TableRelationshipDiagramHelper {
 
             GenerateTechnicalWordDocs.TableDocModel childModel = childTableName != null ? tableMap.get(childTableName.toUpperCase()) : null;
             if (childModel == null && childTableName != null) {
-                DbObjectSearcher.TableDocModel found = DbObjectSearcher.getInstance().findTable(cSchema, childTableName);
+                TableDocModel found = DbObjectSearcher.getInstance().findTable(cSchema, childTableName);
                 if (found != null) {
                     childModel = fromSearcherDocModel(found);
                 } else {
@@ -1515,7 +1515,7 @@ public class TableRelationshipDiagramHelper {
             String childConnectorLabel = "1 : N";
             JoinDescriptor cJd = childModel != null ? resolveJoin(tbl, childModel) : null;
             if (!childRels.isEmpty()) {
-                DbObjectSearcher.TableRelationship cRel = childRels.get(0);
+                TableRelationship cRel = childRels.get(0);
                 String tCol = (tbl.primaryKeys != null && !tbl.primaryKeys.isEmpty()) ? tbl.primaryKeys.get(0) : cRel.getSourceColumn();
                 if (cRel.isEnforced()) {
                     childConnectorLabel = tCol + " -> " + cRel.getSourceColumn() + " [FK]";
@@ -2306,12 +2306,12 @@ public class TableRelationshipDiagramHelper {
         capRun.setText(caption);
     }
 
-    private static DbObjectSearcher.TableDocModel toSearcherDocModel(GenerateTechnicalWordDocs.TableDocModel tbl) {
+    private static TableDocModel toSearcherDocModel(GenerateTechnicalWordDocs.TableDocModel tbl) {
         if (tbl == null) {
-            DbObjectSearcher.TableDocModel result = null;
+            TableDocModel result = null;
             return result;
         }
-        DbObjectSearcher.TableDocModel m = new DbObjectSearcher.TableDocModel();
+        TableDocModel m = new TableDocModel();
         m.databaseName = tbl.databaseName != null ? tbl.databaseName : "DEVOLTP";
         m.schema = tbl.schema != null ? tbl.schema : "ARS";
         m.tableName = tbl.tableName != null ? tbl.tableName : "";
@@ -2334,7 +2334,7 @@ public class TableRelationshipDiagramHelper {
         if (tbl.externalLocations != null) m.externalLocations = new ArrayList<>(tbl.externalLocations);
         if (tbl.columns != null) {
             for (GenerateTechnicalWordDocs.TableColumnDoc c : tbl.columns) {
-                DbObjectSearcher.TableColumnDoc sc = new DbObjectSearcher.TableColumnDoc();
+                TableColumnDoc sc = new TableColumnDoc();
                 sc.columnName = c.columnName != null ? c.columnName : "";
                 sc.dataType = c.dataType != null ? c.dataType : "VARCHAR2";
                 sc.isNullable = c.isNullable != null ? c.isNullable : "YES";
@@ -2344,11 +2344,11 @@ public class TableRelationshipDiagramHelper {
                 m.columns.add(sc);
             }
         }
-        DbObjectSearcher.TableDocModel result = m;
+        TableDocModel result = m;
         return result;
     }
 
-    private static GenerateTechnicalWordDocs.TableDocModel fromSearcherDocModel(DbObjectSearcher.TableDocModel found) {
+    private static GenerateTechnicalWordDocs.TableDocModel fromSearcherDocModel(TableDocModel found) {
         if (found == null) {
             GenerateTechnicalWordDocs.TableDocModel result = null;
             return result;
@@ -2375,7 +2375,7 @@ public class TableRelationshipDiagramHelper {
         if (found.referencingRoutines != null) m.referencingRoutines = new ArrayList<>(found.referencingRoutines);
         if (found.externalLocations != null) m.externalLocations = new ArrayList<>(found.externalLocations);
         if (found.columns != null) {
-            for (DbObjectSearcher.TableColumnDoc c : found.columns) {
+            for (TableColumnDoc c : found.columns) {
                 GenerateTechnicalWordDocs.TableColumnDoc tc = new GenerateTechnicalWordDocs.TableColumnDoc();
                 tc.columnName = c.columnName != null ? c.columnName : "";
                 tc.dataType = c.dataType != null ? c.dataType : "VARCHAR2";
@@ -2996,7 +2996,7 @@ public class TableRelationshipDiagramHelper {
         String schemaB = (tableB.schema != null && !tableB.schema.isEmpty()) ? tableB.schema : "SCHEMA";
 
         // 1. Check DbObjectSearcher for mined physical FK or SQL procedure join
-        DbObjectSearcher.TableRelationship rel = DbObjectSearcher.getInstance()
+        TableRelationship rel = DbObjectSearcher.getInstance()
                 .findRelationshipBetween(schemaA, tableA.tableName, schemaB, tableB.tableName);
 
         if (rel != null) {
