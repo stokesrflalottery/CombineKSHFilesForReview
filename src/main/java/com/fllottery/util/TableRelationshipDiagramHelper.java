@@ -1,5 +1,6 @@
 package com.fllottery.util;
 
+import com.fllottery.dbresearch.diagram.ExternalTablePipelineDiagramHelper;
 import org.apache.poi.util.Units;
 import org.apache.poi.xwpf.usermodel.*;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTP;

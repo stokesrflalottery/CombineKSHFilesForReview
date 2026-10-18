@@ -67,7 +67,7 @@ public class GenerateKshTechnicalWordDocs {
     }
 
     public static void main(String[] args) {
-        Map<String, String> argMap = CliArgsParser.parse(args);
+        Map<String, String> argMap = CliArgsParser.parse(args).asMap();
 
         String scriptCachePath = argMap.getOrDefault("input", argMap.getOrDefault("scriptCache", DEFAULT_SCRIPTCACHE_PATH));
         String dbCachePath = argMap.getOrDefault("dbcache", argMap.getOrDefault("dbCache", DEFAULT_DBCACHE_PATH));

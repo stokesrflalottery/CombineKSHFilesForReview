@@ -14,7 +14,6 @@ import com.fllottery.common.cli.ConsoleProgressBar;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fllottery.util.GenerateSpecificationTemplates;
-import com.fllottery.util.GenerateUnifiedTechnicalWordDocs;
 import org.apache.poi.util.Units;
 import org.apache.poi.wp.usermodel.HeaderFooterType;
 import org.apache.poi.xwpf.usermodel.*;

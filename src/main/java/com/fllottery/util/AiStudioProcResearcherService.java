@@ -649,7 +649,7 @@ public class AiStudioProcResearcherService {
                                              String dependencies, String dataFlowDiagram, String businessRules, String errorHandling,
                                              String testingStrategy, int complexityScore, String recommendations, String mermaidDiagram) {
             this(lookupKey, schema, packageName, objectName, description, what, why, how, parameters,
-                 dependencies, dataFlowDiagram, businessRules, errorHandling, testingStrategy, complexityScore, recommendations, mermaidDiagram, "");
+                    dependencies, dataFlowDiagram, businessRules, errorHandling, testingStrategy, complexityScore, recommendations, mermaidDiagram, "");
         }
 
         public EnhancedRoutineResearchResult(String lookupKey, String schema, String packageName, String objectName,
@@ -657,7 +657,7 @@ public class AiStudioProcResearcherService {
                                              String dependencies, String dataFlowDiagram, String businessRules, String errorHandling,
                                              String testingStrategy, int complexityScore, String recommendations) {
             this(lookupKey, schema, packageName, objectName, description, what, why, how, parameters,
-                 dependencies, dataFlowDiagram, businessRules, errorHandling, testingStrategy, complexityScore, recommendations, "", "");
+                    dependencies, dataFlowDiagram, businessRules, errorHandling, testingStrategy, complexityScore, recommendations, "", "");
         }
 
         public EnhancedRoutineResearchResult(String lookupKey, String schema, String packageName, String objectName,
@@ -665,7 +665,7 @@ public class AiStudioProcResearcherService {
                                              String dependencies, String dataFlowDiagram, String businessRules, String errorHandling,
                                              String testingStrategy, int complexityScore, String recommendations) {
             this(lookupKey, schema, packageName, objectName, description, what, why, "", parameters,
-                 dependencies, dataFlowDiagram, businessRules, errorHandling, testingStrategy, complexityScore, recommendations, "", "");
+                    dependencies, dataFlowDiagram, businessRules, errorHandling, testingStrategy, complexityScore, recommendations, "", "");
         }
 
         public static EnhancedRoutineResearchResult createFallback(String lookupKey, String schema, String pkg, String obj, String err) {

@@ -6,7 +6,6 @@ import com.fllottery.dbresearch.doc.GenerateTechnicalWordDocs;
 import com.fllottery.dbresearch.model.*;
 import com.fllottery.dbresearch.search.DbObjectSearcher;
 
-import com.fllottery.util.ExternalTablePipelineDiagramHelper;
 import org.apache.poi.util.Units;
 import org.apache.poi.xwpf.usermodel.*;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTP;
@@ -84,42 +83,58 @@ public class TableRelationshipDiagramHelper {
      * Resolves the syntax color hex code for a given database data type.
      */
     public static String getDataTypeColorHex(String dataType) {
-        if (dataType == null || dataType.isEmpty()) return HEX_TYPE_DEFAULT;
+        if (dataType == null || dataType.isEmpty()) {
+            String result = HEX_TYPE_DEFAULT;
+            return result;
+        }
         String upper = dataType.toUpperCase();
         if (upper.contains("NUM") || upper.contains("INT") || upper.contains("DEC") || upper.contains("FLOAT") || upper.contains("DOUBLE")) {
-            return HEX_TYPE_NUMBER;
+            String result = HEX_TYPE_NUMBER;
+            return result;
         }
         if (upper.contains("VARCHAR") || upper.contains("CHAR") || upper.contains("TEXT") || upper.contains("CLOB") || upper.contains("NVARCHAR")) {
-            return HEX_TYPE_STRING;
+            String result = HEX_TYPE_STRING;
+            return result;
         }
         if (upper.contains("DATE") || upper.contains("TIME") || upper.contains("TIMESTAMP") || upper.contains("INTERVAL")) {
-            return HEX_TYPE_DATE;
+            String result = HEX_TYPE_DATE;
+            return result;
         }
         if (upper.contains("BLOB") || upper.contains("RAW") || upper.contains("XML") || upper.contains("BINARY") || upper.contains("BYTEA")) {
-            return HEX_TYPE_BLOB;
+            String result = HEX_TYPE_BLOB;
+            return result;
         }
-        return HEX_TYPE_DEFAULT;
+        String result = HEX_TYPE_DEFAULT;
+        return result;
     }
 
     /**
      * Resolves the AWT Color for a given database data type.
      */
     public static Color getDataTypeColor(String dataType) {
-        if (dataType == null || dataType.isEmpty()) return COLOR_TYPE_DEFAULT;
+        if (dataType == null || dataType.isEmpty()) {
+            Color result = COLOR_TYPE_DEFAULT;
+            return result;
+        }
         String upper = dataType.toUpperCase();
         if (upper.contains("NUM") || upper.contains("INT") || upper.contains("DEC") || upper.contains("FLOAT") || upper.contains("DOUBLE")) {
-            return COLOR_TYPE_NUMBER;
+            Color result = COLOR_TYPE_NUMBER;
+            return result;
         }
         if (upper.contains("VARCHAR") || upper.contains("CHAR") || upper.contains("TEXT") || upper.contains("CLOB") || upper.contains("NVARCHAR")) {
-            return COLOR_TYPE_STRING;
+            Color result = COLOR_TYPE_STRING;
+            return result;
         }
         if (upper.contains("DATE") || upper.contains("TIME") || upper.contains("TIMESTAMP") || upper.contains("INTERVAL")) {
-            return COLOR_TYPE_DATE;
+            Color result = COLOR_TYPE_DATE;
+            return result;
         }
         if (upper.contains("BLOB") || upper.contains("RAW") || upper.contains("XML") || upper.contains("BINARY") || upper.contains("BYTEA")) {
-            return COLOR_TYPE_BLOB;
+            Color result = COLOR_TYPE_BLOB;
+            return result;
         }
-        return COLOR_TYPE_DEFAULT;
+        Color result = COLOR_TYPE_DEFAULT;
+        return result;
     }
 
     // =========================================================================
@@ -2132,7 +2147,8 @@ public class TableRelationshipDiagramHelper {
         c3.dataType = "DATE";
         m.columns.add(c3);
 
-        return m;
+        GenerateTechnicalWordDocs.TableDocModel result = m;
+        return result;
     }
 
     public static void setHighQualityRenderingHints(Graphics2D g) {

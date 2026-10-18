@@ -20,6 +20,7 @@ public class TableDocModel implements Serializable {
     public String tableName = "";
     public String docId = "";
     public String docPath = "";
+    public String tableType = "RELATIONAL TABLE";
     public String description = "Core enterprise persistence table.";
     public String comments = "Core enterprise persistence table.";
     public String tableRole = "";

@@ -4,8 +4,7 @@ import com.fllottery.kshresearch.model.KornShellScriptDocModel;
 import com.fllottery.kshresearch.model.KshCatalogContainer;
 import com.fllottery.kshresearch.model.ScriptReferenceDoc;
 import com.fllottery.kshresearch.model.ScriptReferenceType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.fllottery.common.util.FlLogger;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -31,7 +30,7 @@ import java.util.stream.Collectors;
  */
 public class KshCatalogSearcher {
 
-    private static final Logger log = LoggerFactory.getLogger(KshCatalogSearcher.java);
+    private static final FlLogger log = FlLogger.getLogger(KshCatalogSearcher.class);
 
     private final List<KornShellScriptDocModel> catalog = new ArrayList<>();
     private final Map<String, KornShellScriptDocModel> indexByFilename = new HashMap<>();

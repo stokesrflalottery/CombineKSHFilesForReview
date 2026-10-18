@@ -1,4 +1,7 @@
-package com.fllottery.util;
+package com.fllottery.dbresearch.diagram;
+
+import com.fllottery.dbresearch.doc.GenerateTechnicalWordDocs;
+import com.fllottery.dbresearch.model.*;
 
 import org.apache.poi.xwpf.usermodel.*;
 
@@ -562,9 +565,9 @@ public class ExternalTablePipelineDiagramHelper {
 
         addCallout(doc, "EXTERNAL TABLE ELT PIPELINE NOTATION LEGEND:",
                 "• [INBOUND FILE]: Physical operating-system landing file located on OCI server storage.\n" +
-                "• [EXTERNAL TABLE]: Oracle ORGANIZATION EXTERNAL definition mapping flat data into SQL without disk tablespace.\n" +
-                "• [BATCH INGEST]: Direct-path bulk insert routine (INSERT /*+ APPEND */ ... SELECT ...) optimizing throughput.\n" +
-                "• [STAGING PERSISTENCE]: Indexed staging table validating record integrity before final core ledger commit.");
+                        "• [EXTERNAL TABLE]: Oracle ORGANIZATION EXTERNAL definition mapping flat data into SQL without disk tablespace.\n" +
+                        "• [BATCH INGEST]: Direct-path bulk insert routine (INSERT /*+ APPEND */ ... SELECT ...) optimizing throughput.\n" +
+                        "• [STAGING PERSISTENCE]: Indexed staging table validating record integrity before final core ledger commit.");
     }
 
     private static void addCallout(XWPFDocument doc, String label, String text) {

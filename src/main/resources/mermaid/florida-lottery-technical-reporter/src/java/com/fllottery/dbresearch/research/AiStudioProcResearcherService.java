@@ -3,7 +3,7 @@ package com.fllottery.dbresearch.research;
 import com.fllottery.common.ai.GoogleAiStudioGateway;
 import com.fllottery.common.json.JsonMapperProvider;
 import com.fllottery.dbresearch.model.*;
-import com.fllottery.util.EnterpriseProxyResolver;
+import com.fllottery.common.util.EnterpriseProxyResolver;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,11 +18,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CountDownLatch;
@@ -658,7 +654,7 @@ public class AiStudioProcResearcherService {
                                              String dependencies, String dataFlowDiagram, String businessRules, String errorHandling,
                                              String testingStrategy, int complexityScore, String recommendations, String mermaidDiagram) {
             this(lookupKey, schema, packageName, objectName, description, what, why, how, parameters,
-                 dependencies, dataFlowDiagram, businessRules, errorHandling, testingStrategy, complexityScore, recommendations, mermaidDiagram, "");
+                    dependencies, dataFlowDiagram, businessRules, errorHandling, testingStrategy, complexityScore, recommendations, mermaidDiagram, "");
         }
 
         public EnhancedRoutineResearchResult(String lookupKey, String schema, String packageName, String objectName,
@@ -666,7 +662,7 @@ public class AiStudioProcResearcherService {
                                              String dependencies, String dataFlowDiagram, String businessRules, String errorHandling,
                                              String testingStrategy, int complexityScore, String recommendations) {
             this(lookupKey, schema, packageName, objectName, description, what, why, how, parameters,
-                 dependencies, dataFlowDiagram, businessRules, errorHandling, testingStrategy, complexityScore, recommendations, "", "");
+                    dependencies, dataFlowDiagram, businessRules, errorHandling, testingStrategy, complexityScore, recommendations, "", "");
         }
 
         public EnhancedRoutineResearchResult(String lookupKey, String schema, String packageName, String objectName,
@@ -674,7 +670,7 @@ public class AiStudioProcResearcherService {
                                              String dependencies, String dataFlowDiagram, String businessRules, String errorHandling,
                                              String testingStrategy, int complexityScore, String recommendations) {
             this(lookupKey, schema, packageName, objectName, description, what, why, "", parameters,
-                 dependencies, dataFlowDiagram, businessRules, errorHandling, testingStrategy, complexityScore, recommendations, "", "");
+                    dependencies, dataFlowDiagram, businessRules, errorHandling, testingStrategy, complexityScore, recommendations, "", "");
         }
 
         public static EnhancedRoutineResearchResult createFallback(String lookupKey, String schema, String pkg, String obj, String err) {

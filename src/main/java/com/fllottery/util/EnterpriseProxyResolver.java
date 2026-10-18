@@ -1,4 +1,4 @@
-package com.fllottery.common.util;
+package com.fllottery.util;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -75,8 +75,7 @@ public class EnterpriseProxyResolver {
         }
 
         public boolean isEnabled() {
-            boolean result = this.enabled;
-            return result;
+            return this.enabled;
         }
 
         public String getHost() {
@@ -85,8 +84,7 @@ public class EnterpriseProxyResolver {
         }
 
         public int getPort() {
-            int result = this.port;
-            return result;
+            return this.port;
         }
 
         public String getResolutionSource() {
@@ -241,11 +239,9 @@ public class EnterpriseProxyResolver {
                     @Override
                     protected PasswordAuthentication getPasswordAuthentication() {
                         if (getRequestorType() == RequestorType.PROXY) {
-                            PasswordAuthentication auth = new PasswordAuthentication(config.username, config.password.toCharArray());
-                            return auth;
+                            return new PasswordAuthentication(config.username, config.password.toCharArray());
                         }
-                        PasswordAuthentication auth = super.getPasswordAuthentication();
-                        return auth;
+                        return super.getPasswordAuthentication();
                     }
                 });
             }
@@ -329,16 +325,13 @@ public class EnterpriseProxyResolver {
 
     private static int parsePortOrDefault(String portStr, int defaultPort) {
         if (portStr == null || portStr.trim().isEmpty()) {
-            int result = defaultPort;
-            return result;
+            return defaultPort;
         }
         try {
             int p = Integer.parseInt(portStr.trim());
-            int result = (p > 0 && p <= 65535) ? p : defaultPort;
-            return result;
+            return (p > 0 && p <= 65535) ? p : defaultPort;
         } catch (NumberFormatException ignored) {
-            int result = defaultPort;
-            return result;
+            return defaultPort;
         }
     }
 

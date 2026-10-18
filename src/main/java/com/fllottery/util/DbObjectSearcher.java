@@ -2320,6 +2320,17 @@ public class DbObjectSearcher {
         return result;
     }
 
+    public DbObject findObject(String schema, String tableName) {
+        if (schema != null && !schema.trim().isEmpty() && tableName != null) {
+            DbObject result = getObject(schema.trim() + "." + tableName.trim());
+            if (result != null) {
+                return result;
+            }
+        }
+        DbObject result = getObject(tableName);
+        return result;
+    }
+
     public Optional<DbObject> findDbObject(String name) {
         String canonical = tryGetCanonicalName(name);
         if (canonical != null) {

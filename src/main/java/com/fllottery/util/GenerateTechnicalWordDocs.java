@@ -1060,7 +1060,7 @@ public class GenerateTechnicalWordDocs {
      * ⬇️ Downward Connector Arrow
      * Tier 3 (Bottom): Return Values, OUT Parameters & Transaction Outcome Verification
      */
-public static void embedProcedurePipelineDiagramVertical(XWPFDocument doc, RoutineDocModel r, GlobalObjectRegistry registry) {
+    public static void embedProcedurePipelineDiagramVertical(XWPFDocument doc, RoutineDocModel r, GlobalObjectRegistry registry) {
         try {
             String sourceText = (r.dataFlowDiagram != null && !r.dataFlowDiagram.isEmpty()) ? r.dataFlowDiagram : r.dependencies;
             String callers = extractSection(sourceText, "Callers:");
@@ -3896,7 +3896,7 @@ public static void embedProcedurePipelineDiagramVertical(XWPFDocument doc, Routi
             }
         } else {
             // Dynamic, procedure-specific step generation derived from routine technical metadata
-            
+
             // Phase 1: Ingress / Input Bindings
             String title1;
             String desc1;
@@ -3997,7 +3997,7 @@ public static void embedProcedurePipelineDiagramVertical(XWPFDocument doc, Routi
         DocxDiagramHelper.embedProgramFlowDiagram(doc, r.schema + "." + r.objectName, diagramSteps);
     }
 
-        private static void renderHowItIsDoneSection(XWPFDocument doc, RoutineDocModel r) {
+    private static void renderHowItIsDoneSection(XWPFDocument doc, RoutineDocModel r) {
         addHeading(doc, "How It's Done (Step-by-Step Technical Execution Flow)", 13);
 
         if (r.flowSteps != null && !r.flowSteps.isEmpty()) {
@@ -4023,9 +4023,9 @@ public static void embedProcedurePipelineDiagramVertical(XWPFDocument doc, Routi
             // Step 1: Input Ingestion & Parameter Setup
             String step1Details;
             if (r.inParameters != null && !r.inParameters.isEmpty()) {
-                step1Details = "The routine receives " + r.inParameters.size() + " input parameter(s) (" 
-                    + String.join(", ", r.inParameters) 
-                    + "). Initial local variables, default values, and operational flags are initialized in the DECLARE block.";
+                step1Details = "The routine receives " + r.inParameters.size() + " input parameter(s) ("
+                        + String.join(", ", r.inParameters)
+                        + "). Initial local variables, default values, and operational flags are initialized in the DECLARE block.";
             } else {
                 step1Details = "The routine is invoked without external input arguments, binding to the current session state, system context, or package-level variables.";
             }
@@ -4034,8 +4034,8 @@ public static void embedProcedurePipelineDiagramVertical(XWPFDocument doc, Routi
             // Step 2: Validation & Pre-Flight Checks
             String step2Details;
             if (r.businessRules != null && !r.businessRules.trim().isEmpty()) {
-                step2Details = "Applies boundary assertions, null-checks, and core business validations before modifying state: " 
-                    + r.businessRules.trim();
+                step2Details = "Applies boundary assertions, null-checks, and core business validations before modifying state: "
+                        + r.businessRules.trim();
             } else {
                 step2Details = "Performs null-safety assertions and input format validations to ensure arguments meet Florida Lottery transactional standards before proceeding.";
             }
@@ -4087,8 +4087,8 @@ public static void embedProcedurePipelineDiagramVertical(XWPFDocument doc, Routi
             // Step 6: Output Delivery & Completion
             String step6Details;
             if (r.outParameters != null && !r.outParameters.isEmpty()) {
-                step6Details = "Populates OUT parameters (" + String.join(", ", r.outParameters) 
-                    + ") and returns execution status to the calling batch job or interface.";
+                step6Details = "Populates OUT parameters (" + String.join(", ", r.outParameters)
+                        + ") and returns execution status to the calling batch job or interface.";
             } else if (r.isFunction()) {
                 step6Details = "Returns the computed scalar value or result set back to the calling SQL query or PL/SQL caller.";
             } else {
@@ -4487,14 +4487,14 @@ public static void embedProcedurePipelineDiagramVertical(XWPFDocument doc, Routi
     public static XWPFParagraph addHeading(XWPFDocument doc, String text, int fontSize, boolean isPageStart, String bookmarkName, int bookmarkId) {
         ensureDocumentHeadingStyles(doc);
         XWPFParagraph p = doc.createParagraph();
-        
+
         // Configure native Word Heading style & outline levels for SharePoint / Desktop Navigation Pane & STYLEREF
         int outlineLevel = (fontSize >= 14) ? 0 : (fontSize >= 12 ? 1 : 2);
         String headingStyle = (fontSize >= 14) ? "Heading 1" : (fontSize >= 12 ? "Heading 2" : "Heading 3");
         try {
             p.setStyle(headingStyle);
         } catch (Exception ignored) {}
-        
+
         try {
             org.openxmlformats.schemas.wordprocessingml.x2006.main.CTPPr pPr = p.getCTP().getPPr();
             if (pPr == null) {
@@ -6950,7 +6950,7 @@ public static void embedProcedurePipelineDiagramVertical(XWPFDocument doc, Routi
         StringBuilder sb = new StringBuilder();
         int parenDepth = 0;
         int bracketDepth = 0;
-        
+
         for (int i = 0; i < text.length(); i++) {
             char c = text.charAt(i);
             if (c == '(') parenDepth++;
@@ -7522,11 +7522,11 @@ public static void embedProcedurePipelineDiagramVertical(XWPFDocument doc, Routi
             }
 
             if (!cleanSql.isEmpty()) {
-                boolean hasCommit = cleanSql.matches("(?s).*\\bCOMMIT\\b.*") || 
-                                    cleanSql.matches("(?s).*\\bROLLBACK\\b.*") || 
-                                    cleanSql.contains("COMMIT;") || 
-                                    cleanSql.contains("COMMIT WORK") || 
-                                    cleanSql.contains("ROLLBACK;");
+                boolean hasCommit = cleanSql.matches("(?s).*\\bCOMMIT\\b.*") ||
+                        cleanSql.matches("(?s).*\\bROLLBACK\\b.*") ||
+                        cleanSql.contains("COMMIT;") ||
+                        cleanSql.contains("COMMIT WORK") ||
+                        cleanSql.contains("ROLLBACK;");
                 boolean isAutonomous = cleanSql.contains("AUTONOMOUS_TRANSACTION");
                 if (hasCommit || isAutonomous) {
                     result = true;
@@ -7535,12 +7535,12 @@ public static void embedProcedurePipelineDiagramVertical(XWPFDocument doc, Routi
 
             if (!result) {
                 String meta = ((businessRules != null ? businessRules : "") + " "
-                             + (how != null ? how : "") + " "
-                             + (what != null ? what : "")).toUpperCase();
-                if (meta.contains("COMMITS TRANSACTION") || 
-                    meta.contains("COMMIT WORK") || 
-                    meta.contains("ISSUES COMMIT") || 
-                    meta.contains("EXPLICIT COMMIT")) {
+                        + (how != null ? how : "") + " "
+                        + (what != null ? what : "")).toUpperCase();
+                if (meta.contains("COMMITS TRANSACTION") ||
+                        meta.contains("COMMIT WORK") ||
+                        meta.contains("ISSUES COMMIT") ||
+                        meta.contains("EXPLICIT COMMIT")) {
                     result = true;
                 }
             }
@@ -7561,11 +7561,11 @@ public static void embedProcedurePipelineDiagramVertical(XWPFDocument doc, Routi
 
             if (!cleanSql.isEmpty()) {
                 if (cleanSql.matches("(?s).*\\bEXCEPTION\\b.*") ||
-                    cleanSql.contains("WHEN OTHERS") ||
-                    cleanSql.contains("WHEN NO_DATA_FOUND") ||
-                    cleanSql.contains("RAISE_APPLICATION_ERROR") ||
-                    cleanSql.contains("SQLCODE") ||
-                    cleanSql.contains("SQLERRM")) {
+                        cleanSql.contains("WHEN OTHERS") ||
+                        cleanSql.contains("WHEN NO_DATA_FOUND") ||
+                        cleanSql.contains("RAISE_APPLICATION_ERROR") ||
+                        cleanSql.contains("SQLCODE") ||
+                        cleanSql.contains("SQLERRM")) {
                     result = true;
                 }
             }
@@ -7591,12 +7591,12 @@ public static void embedProcedurePipelineDiagramVertical(XWPFDocument doc, Routi
             if (!cleanSql.isEmpty()) {
                 boolean hasAuditTableWrite = (cleanSql.contains("INSERT ") || cleanSql.contains("UPDATE ")) &&
                         (cleanSql.contains("AUDIT") || cleanSql.contains("_LOG") || cleanSql.contains("LOG_") || cleanSql.contains("HISTORY"));
-                boolean hasAuditPkgCall = cleanSql.contains("PKG_AUDIT") || 
-                                          cleanSql.contains("LOG_ERROR") || 
-                                          cleanSql.contains("RECORD_AUDIT") || 
-                                          cleanSql.contains("APP_LOG") || 
-                                          cleanSql.contains("BLACKBOX") ||
-                                          cleanSql.contains("DBMS_APPLICATION_INFO");
+                boolean hasAuditPkgCall = cleanSql.contains("PKG_AUDIT") ||
+                        cleanSql.contains("LOG_ERROR") ||
+                        cleanSql.contains("RECORD_AUDIT") ||
+                        cleanSql.contains("APP_LOG") ||
+                        cleanSql.contains("BLACKBOX") ||
+                        cleanSql.contains("DBMS_APPLICATION_INFO");
                 if (hasAuditTableWrite || hasAuditPkgCall) {
                     result = true;
                 }
@@ -7604,15 +7604,15 @@ public static void embedProcedurePipelineDiagramVertical(XWPFDocument doc, Routi
 
             if (!result) {
                 String meta = ((dataFlowDiagram != null ? dataFlowDiagram : "") + " "
-                             + (dependencies != null ? dependencies : "") + " "
-                             + (businessRules != null ? businessRules : "") + " "
-                             + (what != null ? what : "")).toUpperCase();
-                if (meta.contains("AUDITS TRANSACTION") || 
-                    meta.contains("AUDIT LOG") || 
-                    meta.contains("AUDIT TRAIL") || 
-                    meta.contains("RECORD AUDIT") || 
-                    meta.contains("LOGS AUDIT") || 
-                    meta.contains("AUDIT TABLE")) {
+                        + (dependencies != null ? dependencies : "") + " "
+                        + (businessRules != null ? businessRules : "") + " "
+                        + (what != null ? what : "")).toUpperCase();
+                if (meta.contains("AUDITS TRANSACTION") ||
+                        meta.contains("AUDIT LOG") ||
+                        meta.contains("AUDIT TRAIL") ||
+                        meta.contains("RECORD AUDIT") ||
+                        meta.contains("LOGS AUDIT") ||
+                        meta.contains("AUDIT TABLE")) {
                     result = true;
                 }
             }

@@ -1686,7 +1686,7 @@ public class GenerateUnifiedTechnicalWordDocs {
         sb.append("-- Total Columns: ").append(tbl.columns.size()).append(" | Generated: ").append(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())).append("\n");
         if (tbl.isExternal) {
             sb.append("-- Classification: ORACLE EXTERNAL TABLE (Driver: ").append(tbl.driverType != null && !tbl.driverType.isEmpty() ? tbl.driverType : "ORACLE_LOADER")
-              .append(" | Directory: ").append(tbl.defaultDirectory != null && !tbl.defaultDirectory.isEmpty() ? tbl.defaultDirectory : "TRANSLATOR_DATA").append(")\n");
+                    .append(" | Directory: ").append(tbl.defaultDirectory != null && !tbl.defaultDirectory.isEmpty() ? tbl.defaultDirectory : "TRANSLATOR_DATA").append(")\n");
         }
         sb.append("-- ============================================================================\n");
         sb.append("CREATE TABLE ").append(tbl.schema.toUpperCase()).append(".").append(tbl.tableName.toUpperCase()).append(" (\n");
@@ -1709,7 +1709,7 @@ public class GenerateUnifiedTechnicalWordDocs {
 
         if (!tbl.isExternal && !tbl.primaryKeys.isEmpty()) {
             sb.append("    CONSTRAINT PK_").append(tbl.tableName.toUpperCase())
-              .append(" PRIMARY KEY (").append(String.join(", ", tbl.primaryKeys)).append(")\n");
+                    .append(" PRIMARY KEY (").append(String.join(", ", tbl.primaryKeys)).append(")\n");
         }
         sb.append(")\n");
 
@@ -1749,8 +1749,8 @@ public class GenerateUnifiedTechnicalWordDocs {
                 }
                 String u = "UNIQUE".equalsIgnoreCase(idx.uniqueness) ? "UNIQUE " : "";
                 sb.append("CREATE ").append(u).append("INDEX ").append(tbl.schema.toUpperCase()).append(".").append(idx.indexName.toUpperCase())
-                  .append(" ON ").append(tbl.schema.toUpperCase()).append(".").append(tbl.tableName.toUpperCase())
-                  .append(" (").append(idx.columns).append(");\n");
+                        .append(" ON ").append(tbl.schema.toUpperCase()).append(".").append(tbl.tableName.toUpperCase())
+                        .append(" (").append(idx.columns).append(");\n");
             }
         }
         String result = sb.toString();
@@ -2714,18 +2714,18 @@ public class GenerateUnifiedTechnicalWordDocs {
                                                     Set<String> schemasAccessed,
                                                     List<String> tablesAccessed) {
         Set<String> sqlKeywords = new HashSet<>(Arrays.asList(
-            "SET", "SELECT", "WHERE", "ORDER", "GROUP", "HAVING", "DUAL",
-            "USER_TABLES", "ALL_TABLES", "ALL_TAB_COLUMNS", "USER_TAB_COLUMNS",
-            "ALL_OBJECTS", "USER_OBJECTS", "DBA_TABLES", "V$SESSION", "GV$SESSION",
-            "SYS", "SYSTEM", "ON", "AS", "TABLE", "VALUES", "NULL", "BEGIN", "END",
-            "IF", "THEN", "ELSE", "LOOP", "EXCEPTION", "AND", "OR", "NOT", "IN",
-            "EXISTS", "BETWEEN", "CASE", "WHEN", "ROWNUM", "SYSDATE", "SUBSTR",
-            "TO_CHAR", "TO_DATE", "COUNT", "MAX", "MIN", "SUM", "AVG", "NVL"
+                "SET", "SELECT", "WHERE", "ORDER", "GROUP", "HAVING", "DUAL",
+                "USER_TABLES", "ALL_TABLES", "ALL_TAB_COLUMNS", "USER_TAB_COLUMNS",
+                "ALL_OBJECTS", "USER_OBJECTS", "DBA_TABLES", "V$SESSION", "GV$SESSION",
+                "SYS", "SYSTEM", "ON", "AS", "TABLE", "VALUES", "NULL", "BEGIN", "END",
+                "IF", "THEN", "ELSE", "LOOP", "EXCEPTION", "AND", "OR", "NOT", "IN",
+                "EXISTS", "BETWEEN", "CASE", "WHEN", "ROWNUM", "SYSDATE", "SUBSTR",
+                "TO_CHAR", "TO_DATE", "COUNT", "MAX", "MIN", "SUM", "AVG", "NVL"
         ));
 
         Pattern pattern = Pattern.compile(
-            "\\b(FROM|JOIN|INSERT\\s+INTO|MERGE\\s+INTO|DELETE\\s+FROM|UPDATE|USING|TRUNCATE\\s+TABLE|TABLE\\s*\\()\\s+([A-Za-z0-9_#$]+(?:\\.[A-Za-z0-9_#$]+)?)\\b",
-            Pattern.CASE_INSENSITIVE
+                "\\b(FROM|JOIN|INSERT\\s+INTO|MERGE\\s+INTO|DELETE\\s+FROM|UPDATE|USING|TRUNCATE\\s+TABLE|TABLE\\s*\\()\\s+([A-Za-z0-9_#$]+(?:\\.[A-Za-z0-9_#$]+)?)\\b",
+                Pattern.CASE_INSENSITIVE
         );
 
         Matcher matcher = pattern.matcher(sql);
@@ -3680,7 +3680,7 @@ public class GenerateUnifiedTechnicalWordDocs {
         DocxDiagramHelper.embedProgramFlowDiagram(doc, r.schema + "." + r.objectName, diagramSteps);
     }
 
-        private static void renderHowItIsDoneSection(XWPFDocument doc, GenerateTechnicalWordDocs.RoutineDocModel r) {
+    private static void renderHowItIsDoneSection(XWPFDocument doc, GenerateTechnicalWordDocs.RoutineDocModel r) {
         addHeading(doc, "How It's Done (Step-by-Step Technical Execution Flow)", 13);
 
         if (r.flowSteps != null && !r.flowSteps.isEmpty()) {
@@ -3706,9 +3706,9 @@ public class GenerateUnifiedTechnicalWordDocs {
             // Step 1: Input Intake & Parameter Setup
             String step1Details;
             if (r.inParameters != null && !r.inParameters.isEmpty()) {
-                step1Details = "The routine receives " + r.inParameters.size() + " input parameter(s) (" 
-                    + String.join(", ", r.inParameters) 
-                    + "). Initial local variables, default values, and operational flags are initialized in the DECLARE block.";
+                step1Details = "The routine receives " + r.inParameters.size() + " input parameter(s) ("
+                        + String.join(", ", r.inParameters)
+                        + "). Initial local variables, default values, and operational flags are initialized in the DECLARE block.";
             } else {
                 step1Details = "The routine is invoked without external input arguments, binding to the current session state, system context, or package-level variables.";
             }
@@ -3717,8 +3717,8 @@ public class GenerateUnifiedTechnicalWordDocs {
             // Step 2: Validation & Pre-Flight Checks
             String step2Details;
             if (r.businessRules != null && !r.businessRules.trim().isEmpty()) {
-                step2Details = "Applies boundary assertions, null-checks, and core business validations before modifying state: " 
-                    + r.businessRules.trim();
+                step2Details = "Applies boundary assertions, null-checks, and core business validations before modifying state: "
+                        + r.businessRules.trim();
             } else {
                 step2Details = "Performs null-safety assertions and input format validations to ensure arguments meet Florida Lottery transactional standards before proceeding.";
             }
@@ -3770,8 +3770,8 @@ public class GenerateUnifiedTechnicalWordDocs {
             // Step 6: Output Delivery & Completion
             String step6Details;
             if (r.outParameters != null && !r.outParameters.isEmpty()) {
-                step6Details = "Populates OUT parameters (" + String.join(", ", r.outParameters) 
-                    + ") and returns execution status to the calling batch job or interface.";
+                step6Details = "Populates OUT parameters (" + String.join(", ", r.outParameters)
+                        + ") and returns execution status to the calling batch job or interface.";
             } else if (r.isFunction()) {
                 step6Details = "Returns the computed scalar value or result set back to the calling SQL query or PL/SQL caller.";
             } else {
@@ -4133,14 +4133,14 @@ public class GenerateUnifiedTechnicalWordDocs {
     public static XWPFParagraph addHeading(XWPFDocument doc, String text, int fontSize, boolean isPageStart, String bookmarkName, int bookmarkId) {
         ensureDocumentHeadingStyles(doc);
         XWPFParagraph p = doc.createParagraph();
-        
+
         // Configure native Word Heading style & outline levels for SharePoint / Desktop Navigation Pane & STYLEREF
         int outlineLevel = (fontSize >= 14) ? 0 : (fontSize >= 12 ? 1 : 2);
         String headingStyle = (fontSize >= 14) ? "Heading 1" : (fontSize >= 12 ? "Heading 2" : "Heading 3");
         try {
             p.setStyle(headingStyle);
         } catch (Exception ignored) {}
-        
+
         try {
             org.openxmlformats.schemas.wordprocessingml.x2006.main.CTPPr pPr = p.getCTP().getPPr();
             if (pPr == null) {

@@ -4,6 +4,7 @@ import com.fllottery.common.diagram.MermaidDslHelper;
 import com.fllottery.common.json.JsonMapperProvider;
 import com.fllottery.common.office.FlBrandTheme;
 
+import com.fllottery.common.util.EnterpriseProxyResolver;
 import org.apache.poi.util.Units;
 import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
